@@ -12,6 +12,10 @@
     <RepositoryType>git</RepositoryType>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <AssemblyVersion>1.0.3</AssemblyVersion>
+    <PackageVersion>1.0.3</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +23,13 @@
     <Using Include="System.Collections.Immutable" />
     <Using Include="System.Diagnostics" />
     <Using Include="System.Collections" />
+    <None Include="readme.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="readme.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
