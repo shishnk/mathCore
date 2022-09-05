@@ -6,16 +6,19 @@
     <Nullable>enable</Nullable>
     <EnablePreviewFeatures>true</EnablePreviewFeatures>
     <Authors>Hukutka</Authors>
-    <Description>A set of classes and methods for numerical methods</Description>
+    <Description>.NET library for numerical methods</Description>
     <PackageId>Hukutka.MathCore</PackageId>
-    <Product>Hukutka.MathCore</Product>
-    <Version>1.0.1</Version>
+    <RepositoryUrl>https://github.com/shishnk/mathCore</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Runtime.Experimental" Version="6.0.2" />
     <Using Include="System.Collections.Immutable" />
     <Using Include="System.Diagnostics" />
+    <Using Include="System.Collections" />
   </ItemGroup>
 
 </Project>
