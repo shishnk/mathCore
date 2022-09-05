@@ -1,6 +1,6 @@
 ﻿namespace MathCore;
 
-public class Vector<T> where T : INumber<T>
+public class Vector<T> : IEnumerable<T> where T : INumber<T>
 {
     private readonly T[] _storage;
     public int Length { get; }
@@ -101,4 +101,14 @@ public class Vector<T> where T : INumber<T>
 
     public ImmutableArray<T> ToImmutableArray()
         => ImmutableArray.Create(_storage);
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        foreach (T value in _storage)
+        {
+            yield return value;
+        }
+    }
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }
