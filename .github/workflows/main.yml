@@ -18,7 +18,7 @@ jobs:
     - name: Install dependencies
       run: dotnet restore MathCore.sln
     - name: Build
-      run: dotnet build MathCore.sln --configuration Release --no-restore 
+      run: dotnet build MathCore.sln --no-restore 
     - name: Tests
       run: dotnet test MathCore/MathCore.csproj
     - name: Publish Hukutka.MathCore
