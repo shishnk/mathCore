@@ -23,10 +23,10 @@ jobs:
         
       - name: Building
         run: |
-          dotnet build MathCore -c Release --nologo
+          dotnet build MathCore --nologo
         
       - name: Packing
-        run: dotnet pack MathCore -c Release -v m          
+        run: dotnet pack MathCore -v m          
       
       - name: Push package
         run: dotnet nuget push "**/*.nupkg" --skip-duplicate -s https://nuget.pkg.github.com/Hukutka/index.json -k ${{secrets.GITHUB_TOKEN}}
