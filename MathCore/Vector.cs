@@ -1,5 +1,8 @@
 ﻿namespace MathCore;
 
+/// <summary>
+/// Class <c>Vector</c> is a collection with overloads and methods.
+/// </summary>
 public class Vector<T> : IEnumerable<T> where T : INumber<T>
 {
     private readonly T[] _storage;
@@ -62,6 +65,11 @@ public class Vector<T> : IEnumerable<T> where T : INumber<T>
         return result;
     }
 
+    /// <summary>
+    /// Method <c>Copy</c> copies the values to another vector object.
+    /// </summary>
+    /// <param name="source">A source vector.</param>
+    /// <param name="destination">A destination vector.</param>
     public static void Copy(Vector<T> source, Vector<T> destination)
     {
         for (int i = 0; i < source.Length; i++)
@@ -70,6 +78,11 @@ public class Vector<T> : IEnumerable<T> where T : INumber<T>
         }
     }
 
+    /// <summary>
+    /// Method <c>Copy</c> with a new vector object returned.
+    /// </summary>
+    /// <param name="otherVector">A vector from which the values are copied.</param>
+    /// <returns>A vector with copied values.</returns>
     public static Vector<T> Copy(Vector<T> otherVector)
     {
         Vector<T> newVector = new(otherVector.Length);
@@ -79,6 +92,10 @@ public class Vector<T> : IEnumerable<T> where T : INumber<T>
         return newVector;
     }
 
+    /// <summary>
+    /// Method <c>Fill</c> for filling a vector with one value.
+    /// </summary>
+    /// <param name="value">Fill-in value.</param>
     public void Fill(double value)
     {
         for (int i = 0; i < Length; i++)
@@ -87,6 +104,10 @@ public class Vector<T> : IEnumerable<T> where T : INumber<T>
         }
     }
 
+    /// <summary>
+    /// Method <c>Norm</c> that returns the Euclidean norm of a vector.
+    /// </summary>
+    /// <returns>Euclidean norm.</returns>
     public double Norm()
     {
         T result = T.Zero;

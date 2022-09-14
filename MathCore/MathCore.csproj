@@ -14,9 +14,9 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>1.0.3.1</AssemblyVersion>
-    <PackageVersion>1.0.3.1</PackageVersion>
-    <Version>1.0.3.1</Version>
+    <AssemblyVersion>1.0.4</AssemblyVersion>
+    <PackageVersion>1.0.4</PackageVersion>
+    <Version>1.0.4</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
