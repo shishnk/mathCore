@@ -1,25 +1,48 @@
 ﻿namespace MathCore;
 
+/// <summary>
+/// Abstract base class <c>IterativeSolver</c> for iterative methods of solving SLAEs.
+/// </summary>
 public abstract class IterativeSolver
 {
     protected TimeSpan? _runningTime;
     protected SparseMatrix _matrix = default!;
     protected Vector<double> _vector = default!;
     protected Vector<double>? _solution;
+
+    /// <value>Property <c>MaxIters</c> to set maximum number of iterations the solver can make. </value>
     public int MaxIters { get; }
+
+    /// <value>Property <c>Eps</c> for specifying the accuracy of the solution. </value>
     public double Eps { get; }
+
+    /// <value>Property <c>RunningTime</c>to determine the time in which the SLAE was solved. </value>
     public TimeSpan? RunningTime => _runningTime;
+
+    /// <value>Property <c>Solution</c>represents the solution of a given SLAE. </value>
     public ImmutableArray<double>? Solution => _solution?.ToImmutableArray();
 
     protected IterativeSolver(int maxIters, double eps)
         => (MaxIters, Eps) = (maxIters, eps);
 
+
+    /// <summary>
+    /// Set a sparse matrix for the solver.
+    /// </summary>
+    /// <param name="matrix">SparseMatrix</param>
     public void SetMatrix(SparseMatrix matrix)
         => _matrix = matrix;
 
+    /// <summary>
+    /// Set a vector for the solver.
+    /// </summary>
+    /// <param name="vector">Vector of the right part.</param>
     public void SetVector(Vector<double> vector)
         => _vector = vector;
 
+    /// <summary>
+    /// Start solving the SLAE.
+    /// </summary>
     public abstract void Compute();
 
     protected void Cholesky(double[] ggnew, double[] dinew)
@@ -29,20 +52,20 @@ public abstract class IterativeSolver
 
         for (int i = 0; i < _matrix.Size; i++)
         {
-            int i0 = _matrix.ig[i];
-            int i1 = _matrix.ig[i + 1];
+            int i0 = _matrix.Ig[i];
+            int i1 = _matrix.Ig[i + 1];
 
             for (int k = i0; k < i1; k++)
             {
-                int j = _matrix.jg[k];
-                int j0 = _matrix.ig[j];
-                int j1 = _matrix.ig[j + 1];
+                int j = _matrix.Jg[k];
+                int j0 = _matrix.Ig[j];
+                int j1 = _matrix.Ig[j + 1];
                 int ik = i0;
                 int kj = j0;
 
                 while (ik < k && kj < j1)
                 {
-                    if (_matrix.jg[ik] == _matrix.jg[kj])
+                    if (_matrix.Jg[ik] == _matrix.Jg[kj])
                     {
                         suml += ggnew[ik] * ggnew[kj];
                         ik++;
@@ -50,7 +73,7 @@ public abstract class IterativeSolver
                     }
                     else
                     {
-                        if (_matrix.jg[ik] > _matrix.jg[kj])
+                        if (_matrix.Jg[ik] > _matrix.Jg[kj])
                             kj++;
                         else
                             ik++;
@@ -77,11 +100,11 @@ public abstract class IterativeSolver
 
         for (int i = 0; i < _matrix.Size; i++) // Прямой ход
         {
-            int i0 = _matrix.ig[i];
-            int i1 = _matrix.ig[i + 1];
+            int i0 = _matrix.Ig[i];
+            int i1 = _matrix.Ig[i + 1];
 
             for (int k = i0; k < i1; k++)
-                sum += ggnew[k] * y[_matrix.jg[k]];
+                sum += ggnew[k] * y[_matrix.Jg[k]];
 
             y[i] = (y[i] - sum) / dinew[i];
             sum = 0.0;
@@ -91,12 +114,12 @@ public abstract class IterativeSolver
 
         for (int i = _matrix.Size - 1; i >= 0; i--) // Обратный ход
         {
-            int i0 = _matrix.ig[i];
-            int i1 = _matrix.ig[i + 1];
+            int i0 = _matrix.Ig[i];
+            int i1 = _matrix.Ig[i + 1];
             x[i] = y[i] / dinew[i];
 
             for (int k = i0; k < i1; k++)
-                y[_matrix.jg[k]] -= ggnew[k] * x[i];
+                y[_matrix.Jg[k]] -= ggnew[k] * x[i];
         }
 
         return x;
@@ -111,11 +134,11 @@ public abstract class IterativeSolver
 
         for (int i = 0; i < _matrix.Size; i++)
         {
-            int i0 = _matrix.ig[i];
-            int i1 = _matrix.ig[i + 1];
+            int i0 = _matrix.Ig[i];
+            int i1 = _matrix.Ig[i + 1];
 
             for (int k = i0; k < i1; k++)
-                sum += gglnew[k] * y[_matrix.jg[k]];
+                sum += gglnew[k] * y[_matrix.Jg[k]];
 
             y[i] = (y[i] - sum) / dinew[i];
             sum = 0.0;
@@ -131,11 +154,11 @@ public abstract class IterativeSolver
 
         for (int i = _matrix.Size - 1; i >= 0; i--)
         {
-            int i0 = _matrix.ig[i];
-            int i1 = _matrix.ig[i + 1];
+            int i0 = _matrix.Ig[i];
+            int i1 = _matrix.Ig[i + 1];
 
             for (int k = i0; k < i1; k++)
-                result[_matrix.jg[k]] -= ggunew[k] * result[i];
+                result[_matrix.Jg[k]] -= ggunew[k] * result[i];
         }
 
         return result;
@@ -149,27 +172,27 @@ public abstract class IterativeSolver
 
         for (int i = 0; i < _matrix.Size; i++)
         {
-            int i0 = _matrix.ig[i];
-            int i1 = _matrix.ig[i + 1];
+            int i0 = _matrix.Ig[i];
+            int i1 = _matrix.Ig[i + 1];
 
             for (int k = i0; k < i1; k++)
             {
-                int j = _matrix.jg[k];
-                int j0 = _matrix.ig[j];
-                int j1 = _matrix.ig[j + 1];
+                int j = _matrix.Jg[k];
+                int j0 = _matrix.Ig[j];
+                int j1 = _matrix.Ig[j + 1];
                 int ik = i0;
                 int kj = j0;
 
                 while (ik < k && kj < j1)
                 {
-                    if (_matrix.jg[ik] == _matrix.jg[kj])
+                    if (_matrix.Jg[ik] == _matrix.Jg[kj])
                     {
                         suml += gglnew[ik] * ggunew[kj];
                         sumu += ggunew[ik] * gglnew[kj];
                         ik++;
                         kj++;
                     }
-                    else if (_matrix.jg[ik] > _matrix.jg[kj])
+                    else if (_matrix.Jg[ik] > _matrix.Jg[kj])
                     {
                         kj++;
                     }
@@ -192,6 +215,9 @@ public abstract class IterativeSolver
     }
 }
 
+/// <summary>
+/// Local-optimal scheme
+/// </summary>
 public class LOS : IterativeSolver
 {
     public LOS(int maxIters, double eps) : base(maxIters, eps)
@@ -244,6 +270,9 @@ public class LOS : IterativeSolver
     }
 }
 
+/// <summary>
+/// Local-optimal scheme with LU decomposition preconditioning.
+/// </summary>
 public class LOSLU : IterativeSolver
 {
     public LOSLU(int maxIters, double eps) : base(maxIters, eps)
@@ -259,13 +288,13 @@ public class LOSLU : IterativeSolver
 
             _solution = new(_vector.Length);
 
-            double[] gglnew = new double[_matrix.ggl.Length];
-            double[] ggunew = new double[_matrix.ggu.Length];
-            double[] dinew = new double[_matrix.di.Length];
+            double[] gglnew = new double[_matrix.Ggl.Length];
+            double[] ggunew = new double[_matrix.Ggu.Length];
+            double[] dinew = new double[_matrix.Di.Length];
 
-            _matrix.ggl.Copy(gglnew);
-            _matrix.ggu.Copy(ggunew);
-            _matrix.di.Copy(dinew);
+            _matrix.Ggl.Copy(gglnew);
+            _matrix.Ggu.Copy(ggunew);
+            _matrix.Di.Copy(dinew);
 
             Stopwatch sw = Stopwatch.StartNew();
 
@@ -302,6 +331,9 @@ public class LOSLU : IterativeSolver
     }
 }
 
+/// <summary>
+/// Biconjugate gradient method with LU decomposition preconditioning.
+/// </summary>
 public class BCGSTABLU : IterativeSolver
 {
     public BCGSTABLU(int maxIters, double eps) : base(maxIters, eps)
@@ -323,13 +355,13 @@ public class BCGSTABLU : IterativeSolver
 
             _solution = new(_vector.Length);
 
-            double[] gglnew = new double[_matrix.ggl.Length];
-            double[] ggunew = new double[_matrix.ggu.Length];
-            double[] dinew = new double[_matrix.di.Length];
+            double[] gglnew = new double[_matrix.Ggl.Length];
+            double[] ggunew = new double[_matrix.Ggu.Length];
+            double[] dinew = new double[_matrix.Di.Length];
 
-            _matrix.ggl.Copy(gglnew);
-            _matrix.ggu.Copy(ggunew);
-            _matrix.di.Copy(dinew);
+            _matrix.Ggl.Copy(gglnew);
+            _matrix.Ggu.Copy(ggunew);
+            _matrix.Di.Copy(dinew);
 
             Vector<double> r0 = new(_vector.Length);
             Vector<double> p = new(_vector.Length);
@@ -370,6 +402,9 @@ public class BCGSTABLU : IterativeSolver
         }
     }
 
+    /// <summary>
+    /// Nonlinear conjugate gradient method.
+    /// </summary>
     public class CGM : IterativeSolver
     {
         public CGM(int maxIters, double eps) : base(maxIters, eps)
@@ -417,6 +452,9 @@ public class BCGSTABLU : IterativeSolver
         }
     }
 
+    /// <summary>
+    /// Nonlinear conjugate gradient method with Cholesky(LL^T) decomposition preconditioning.
+    /// </summary>
     public class CGMCholesky : IterativeSolver
     {
         public CGMCholesky(int maxIters, double eps) : base(maxIters, eps)
@@ -434,11 +472,11 @@ public class BCGSTABLU : IterativeSolver
 
                 _solution = new(_vector.Length);
 
-                double[] ggnew = new double[_matrix.ggu.Length];
-                double[] dinew = new double[_matrix.di.Length];
+                double[] ggnew = new double[_matrix.Ggu.Length];
+                double[] dinew = new double[_matrix.Di.Length];
 
-                _matrix.ggu.Copy(ggnew);
-                _matrix.di.Copy(dinew);
+                _matrix.Ggu.Copy(ggnew);
+                _matrix.Di.Copy(dinew);
 
                 Stopwatch sw = Stopwatch.StartNew();
 

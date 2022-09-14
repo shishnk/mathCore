@@ -1,31 +1,50 @@
 ﻿namespace MathCore;
 
+/// <summary>
+/// Abstract base class <c>DenseMatrix</c> to solve the SLAE for a dense matrix.
+/// </summary>
 public abstract class DenseMatrixSolver
 {
     protected Vector<double>? _solution;
     protected Vector<double> _vector = default!;
-    protected Matrix<double> _matrix = default!;
+    protected SquareMatrix<double> _matrix = default!;
+
+    /// <value>Property <c>Solution</c>represents the solution of a given SLAE. </value>
     public ImmutableArray<double>? Solution => _solution?.ToImmutableArray();
 
+    /// <summary>
+    /// Set a dense matrix for the solver.
+    /// </summary>
+    /// <param name="matrix">Dense matrix.</param>
+    public void SetMatrix(SquareMatrix<double> matrix)
+        => _matrix = SquareMatrix<double>.Copy(matrix);
+
+    /// <summary>
+    /// Set a vector for the solver.
+    /// </summary>
+    /// <param name="vector">Vector of the right part.</param>
     public void SetVector(Vector<double> vector)
         => _vector = Vector<double>.Copy(vector);
 
-    public void SetMatrix(Matrix<double> matrix)
-        => _matrix = Matrix<double>.Copy(matrix);
-
-    protected DenseMatrixSolver(Matrix<double> matrix, Vector<double> vector)
+    protected DenseMatrixSolver(SquareMatrix<double> matrix, Vector<double> vector)
         => (_matrix, _vector) = (matrix, vector);
 
     protected DenseMatrixSolver()
     {
     }
 
+    /// <summary>
+    /// Start solving the SLAE.
+    /// </summary>
     public abstract void Compute();
 }
 
+/// <summary>
+/// Class <c>Gauss</c> to solve the SLAE by the Gaussian method.
+/// </summary>
 public class Gauss : DenseMatrixSolver
 {
-    public Gauss(Matrix<double> matrix, Vector<double> vector) : base(matrix, vector)
+    public Gauss(SquareMatrix<double> matrix, Vector<double> vector) : base(matrix, vector)
     {
     }
 
@@ -40,19 +59,14 @@ public class Gauss : DenseMatrixSolver
             ArgumentNullException.ThrowIfNull(_matrix, $"{nameof(_matrix)} cannot be null, set the Matrix");
             ArgumentNullException.ThrowIfNull(_vector, $"{nameof(_vector)} cannot be null, set the Vector");
 
-            if (_matrix.Rows != _matrix.Columns)
-            {
-                throw new NotSupportedException("The Gaussian method will not be able to solve this system");
-            }
-
             const double eps = 1E-15;
 
-            for (int k = 0; k < _matrix.Rows; k++)
+            for (int k = 0; k < _matrix.Size; k++)
             {
                 var max = Math.Abs(_matrix[k, k]);
                 int index = k;
 
-                for (int i = k + 1; i < _matrix.Rows; i++)
+                for (int i = k + 1; i < _matrix.Size; i++)
                 {
                     if (Math.Abs(_matrix[i, k]) > max)
                     {
@@ -61,7 +75,7 @@ public class Gauss : DenseMatrixSolver
                     }
                 }
 
-                for (int j = 0; j < _matrix.Rows; j++)
+                for (int j = 0; j < _matrix.Size; j++)
                 {
                     (_matrix[k, j], _matrix[index, j]) =
                         (_matrix[index, j], _matrix[k, j]);
@@ -69,7 +83,7 @@ public class Gauss : DenseMatrixSolver
 
                 (_vector[k], _vector[index]) = (_vector[index], _vector[k]);
 
-                for (int i = k; i < _matrix.Rows; i++)
+                for (int i = k; i < _matrix.Size; i++)
                 {
                     double temp = _matrix[i, k];
 
@@ -78,7 +92,7 @@ public class Gauss : DenseMatrixSolver
                         throw new Exception("Zero element of the column");
                     }
 
-                    for (int j = 0; j < _matrix.Rows; j++)
+                    for (int j = 0; j < _matrix.Size; j++)
                     {
                         _matrix[i, j] /= temp;
                     }
@@ -87,7 +101,7 @@ public class Gauss : DenseMatrixSolver
 
                     if (i != k)
                     {
-                        for (int j = 0; j < _matrix.Rows; j++)
+                        for (int j = 0; j < _matrix.Size; j++)
                         {
                             _matrix[i, j] -= _matrix[k, j];
                         }
@@ -99,7 +113,7 @@ public class Gauss : DenseMatrixSolver
 
             _solution = new(_vector.Length);
 
-            for (int k = _matrix.Rows - 1; k >= 0; k--)
+            for (int k = _matrix.Size - 1; k >= 0; k--)
             {
                 _solution![k] = _vector[k];
 

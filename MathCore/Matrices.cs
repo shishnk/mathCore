@@ -62,6 +62,26 @@ public class SquareMatrix<T> where T : INumber<T>
 
     public void Clear()
         => Array.Clear(_storage, 0, _storage.Length);
+
+    /// <summary>
+    /// Method <c>Copy</c> with a new matrix object returned.
+    /// </summary>
+    /// <param name="otherMatrix">A matrix from which the values are copied.</param>
+    /// <returns>A copied matrix.</returns>
+    public static SquareMatrix<T> Copy(SquareMatrix<T> otherMatrix)
+    {
+        SquareMatrix<T> newMatrix = new(otherMatrix.Size);
+
+        for (int i = 0; i < otherMatrix.Size; i++)
+        {
+            for (int j = 0; j < otherMatrix.Size; j++)
+            {
+                newMatrix[i, j] = otherMatrix[i, j];
+            }
+        }
+
+        return newMatrix;
+    }
 }
 
 /// <summary>
