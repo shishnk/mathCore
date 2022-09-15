@@ -20,7 +20,7 @@ jobs:
     - name: Build
       run: dotnet build MathCore.sln --no-restore 
     - name: Tests
-      run: dotnet test MathCore/MathCore.csproj
+      run: dotnet test Tests/Tests.csproj
     - name: Publish Hukutka.MathCore
       uses: brandedoutcast/publish-nuget@v2.5.2
       with:
