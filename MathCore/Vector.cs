@@ -2,6 +2,10 @@
 
 /// <summary>
 /// Class <c>Vector</c> is a collection with overloads and methods.
+/// <remarks>
+/// T are the types that implement the INumber interface.
+/// This list of types includes the unmanaged.
+/// </remarks>
 /// </summary>
 public class Vector<T> : IEnumerable<T> where T : INumber<T>
 {
@@ -132,4 +136,24 @@ public class Vector<T> : IEnumerable<T> where T : INumber<T>
     }
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+    /// <summary>
+    ///  Method for adding values from a collection.
+    /// </summary>
+    /// <param name="collection"> A collection whose values will be added to the vector</param>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    public void Add(IEnumerable<T> collection)
+    {
+        var enumerable = collection as T[] ?? collection.ToArray();
+
+        if (Length != enumerable.Length)
+        {
+            throw new ArgumentOutOfRangeException(nameof(collection), "Sizes of vector and collection not equal");
+        }
+
+        for (int i = 0; i < Length; i++)
+        {
+            _storage[i] = enumerable[i];
+        }
+    }
 }
