@@ -1,7 +1,7 @@
 ﻿namespace MathCore;
 
 /// <summary>
-/// Abstract base class <c>DenseMatrix</c> to solve the SLAE for a dense matrix.
+/// Abstract base class <c>DenseMatrixSolver</c> to solve the SLAE for a dense matrix.
 /// </summary>
 public abstract class DenseMatrixSolver
 {
@@ -27,7 +27,7 @@ public abstract class DenseMatrixSolver
         => _vector = Vector<double>.Copy(vector);
 
     protected DenseMatrixSolver(SquareMatrix<double> matrix, Vector<double> vector)
-        => (_matrix, _vector) = (matrix, vector);
+        => (_matrix, _vector) = (SquareMatrix<double>.Copy(matrix), Vector<double>.Copy(vector));
 
     protected DenseMatrixSolver()
     {

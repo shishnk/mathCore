@@ -179,7 +179,7 @@ public class SparseMatrix
     /// Conversion of the sparse matrix to the profile format.
     /// Needed for direct solvers.
     /// </summary>
-    public void AsProfileMatrix()
+    public void ToProfileMatrix()
     {
         int[] ignew = Ig.ToArray();
 
