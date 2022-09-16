@@ -2,6 +2,10 @@
 
 /// <summary>
 /// Class <c>Matrix</c> representing a rectangular matrix.
+/// <remarks>
+/// T are the types that implement the INumber interface.
+/// This list of types includes the unmanaged.
+/// </remarks>
 /// </summary>
 public class Matrix<T> where T : INumber<T>
 {
