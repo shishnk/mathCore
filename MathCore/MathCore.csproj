@@ -1,38 +1,38 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <EnablePreviewFeatures>true</EnablePreviewFeatures>
-    <Authors>Hukutka</Authors>
-    <Description>.NET library for numerical methods</Description>
-    <PackageId>Hukutka.MathCore</PackageId>
-    <RepositoryUrl>https://github.com/shishnk/mathCore</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <PackageReadmeFile>readme.md</PackageReadmeFile>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>1.0.5.2</AssemblyVersion>
-    <PackageVersion>1.0.5.2</PackageVersion>
-    <Version>1.0.5.2</Version>
-    <DocumentationFile>true</DocumentationFile>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <EnablePreviewFeatures>true</EnablePreviewFeatures>
+        <Authors>Hukutka</Authors>
+        <Description>.NET library for numerical methods</Description>
+        <PackageId>Hukutka.MathCore</PackageId>
+        <RepositoryUrl>https://github.com/shishnk/mathCore</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <AssemblyVersion>1.0.6</AssemblyVersion>
+        <PackageVersion>1.0.6</PackageVersion>
+        <Version>1.0.6</Version>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.Runtime.Experimental" Version="6.0.2" />
-    <Using Include="System.Collections.Immutable" />
-    <Using Include="System.Diagnostics" />
-    <Using Include="System.Collections" />
-    <None Include="readme.md" Pack="true" PackagePath="\" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="System.Runtime.Experimental" Version="6.0.2"/>
+        <Using Include="System.Collections.Immutable"/>
+        <Using Include="System.Diagnostics"/>
+        <Using Include="System.Collections"/>
+        <None Include="readme.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <None Update="readme.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+    <ItemGroup>
+        <None Update="readme.md">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
 
 </Project>

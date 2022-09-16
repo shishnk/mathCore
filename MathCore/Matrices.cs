@@ -49,6 +49,10 @@ public class Matrix<T> where T : INumber<T>
 
 /// <summary>
 /// Class <c>SquareMatrix</c> represents a square matrix.
+/// <remarks>
+/// T are the types that implement the INumber interface.
+/// This list of types includes the unmanaged.
+/// </remarks>
 /// </summary>
 public class SquareMatrix<T> where T : INumber<T>
 {
