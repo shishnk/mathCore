@@ -10,16 +10,24 @@ public abstract class IterativeSolver
     protected Vector<double> _vector = default!;
     protected Vector<double>? _solution;
 
-    /// <value>Property <c>MaxIters</c> to set maximum number of iterations the solver can make. </value>
+    /// <summary>
+    /// Property <c>MaxIters</c> to set maximum number of iterations the solver can make.
+    /// </summary>
     public int MaxIters { get; }
 
-    /// <value>Property <c>Eps</c> for specifying the accuracy of the solution. </value>
+    /// <summary>
+    /// Property <c>Eps</c> for specifying the accuracy of the solution.
+    /// </summary>
     public double Eps { get; }
 
-    /// <value>Property <c>RunningTime</c>to determine the time in which the SLAE was solved. </value>
+    /// <summary>
+    /// Property <c>RunningTime</c>to determine the time in which the SLAE was solved.
+    /// </summary>
     public TimeSpan? RunningTime => _runningTime;
 
-    /// <value>Property <c>Solution</c>represents the solution of a given SLAE. </value>
+    /// <summary>
+    /// Property <c>Solution</c>represents the solution of a given SLAE.
+    /// </summary>
     public ImmutableArray<double>? Solution => _solution?.ToImmutableArray();
 
     protected IterativeSolver(int maxIters, double eps)

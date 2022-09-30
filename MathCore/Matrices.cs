@@ -97,24 +97,34 @@ public class SquareMatrix<T> where T : INumber<T>
 /// </summary>
 public class SparseMatrix
 {
-    /// <value>Property <c>Ig</c> contains the indexes from which
-    /// the elements of the k-th row (column) begin in the arrays Jg, Ggl and Ggu.</value>
+    /// <summary>
+    /// Property <c>Ig</c> contains the indexes from which
+    /// the elements of the k-th row (column) begin in the arrays Jg, Ggl and Ggu.
+    /// </summary>
     public int[] Ig { get; set; }
 
-    /// <value>Property <c>Jg</c> contains the numbers of columns (rows) of the stored off-diagonal
-    /// elements of the lower (upper) triangle matrix.</value>
+    /// <summary>
+    /// Property <c>Jg</c> contains the numbers of columns (rows) of the stored off-diagonal
+    /// elements of the lower (upper) triangle matrix.
+    /// </summary>
     public int[] Jg { get; set; }
 
-    /// <value>Property <c>Di</c> contains
-    /// the diagonal elements of the matrix.</value>
+    /// <summary>
+    /// Property <c>Di</c> contains
+    /// the diagonal elements of the matrix.
+    /// </summary>
     public double[] Di { get; set; }
 
-    /// <value>Property <c>Ggl</c> to store off-diagonal
-    /// elements of the lower triangle matrix by rows.</value>
+    /// <summary>
+    /// Property <c>Ggl</c> to store off-diagonal
+    /// elements of the lower triangle matrix by rows.
+    /// </summary>
     public double[] Ggl { get; set; }
 
-    /// <value>Property <c>Ggu</c> to store off-diagonal
-    /// elements of the upper triangle matrix by columns.</value>
+    /// <summary>
+    /// Property <c>Ggu</c> to store off-diagonal
+    /// elements of the upper triangle matrix by columns.
+    /// </summary>
     public double[] Ggu { get; set; }
 
     public int Size { get; }
@@ -156,7 +166,7 @@ public class SparseMatrix
     /// Output the sparse matrix in dense format.
     /// </summary>
     /// <param name="path">File path.</param>
-    public void PrintDense(string path)
+    public void SaveAsDense(string path)
     {
         double[,] a = new double[Size, Size];
 

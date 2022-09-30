@@ -9,7 +9,9 @@ public abstract class DenseMatrixSolver
     protected Vector<double> _vector = default!;
     protected SquareMatrix<double> _matrix = default!;
 
-    /// <value>Property <c>Solution</c>represents the solution of a given SLAE. </value>
+    /// <summary>
+    /// Property <c>Solution</c>represents the solution of a given SLAE.
+    /// </summary>
     public ImmutableArray<double>? Solution => _solution?.ToImmutableArray();
 
     /// <summary>

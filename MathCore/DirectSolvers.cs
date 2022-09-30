@@ -10,10 +10,14 @@ public abstract class DirectSolver
     protected Vector<double> _vector = default!;
     protected Vector<double>? _solution;
 
-    /// <value>Property <c>RunningTime</c>to determine the time in which the SLAE was solved. </value>
+    /// <summary>
+    /// Property <c>RunningTime</c>to determine the time in which the SLAE was solved.
+    /// </summary>
     public TimeSpan? RunningTime => _runningTime;
 
-    /// <value>Property <c>Solution</c>represents the solution of a given SLAE. </value>
+    /// <summary>
+    /// Property <c>Solution</c>represents the solution of a given SLAE.
+    /// </summary>
     public ImmutableArray<double>? Solution => _solution?.ToImmutableArray();
 
     /// <summary>
