@@ -271,6 +271,11 @@ public class LOS : IterativeSolver
 
             _runningTime = sw.Elapsed;
         }
+        catch (ArgumentNullException ex)
+        {
+            Console.WriteLine($"We had problem: {ex.Message}");
+            throw;
+        }
         catch (Exception ex)
         {
             Console.WriteLine($"We had problem: {ex.Message}");
@@ -331,6 +336,11 @@ public class LOSLU : IterativeSolver
             sw.Stop();
 
             _runningTime = sw.Elapsed;
+        }
+        catch (ArgumentNullException ex)
+        {
+            Console.WriteLine($"We had problem: {ex.Message}");
+            throw;
         }
         catch (Exception ex)
         {
@@ -404,6 +414,11 @@ public class BCGSTABLU : IterativeSolver
 
             _runningTime = sw.Elapsed;
         }
+        catch (ArgumentNullException ex)
+        {
+            Console.WriteLine($"We had problem: {ex.Message}");
+            throw;
+        }
         catch (Exception ex)
         {
             Console.WriteLine($"We had problem: {ex.Message}");
@@ -452,6 +467,11 @@ public class BCGSTABLU : IterativeSolver
                 sw.Stop();
 
                 _runningTime = sw.Elapsed;
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($"We had problem: {ex.Message}");
+                throw;
             }
             catch (Exception ex)
             {
@@ -508,6 +528,11 @@ public class BCGSTABLU : IterativeSolver
                 sw.Stop();
 
                 _runningTime = sw.Elapsed;
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($"We had problem: {ex.Message}");
+                throw;
             }
             catch (Exception ex)
             {
