@@ -75,7 +75,7 @@ public class Testing
         DirectSolver directSolver = new DecomposerLDU();
 
         iterativeSolver.SetMatrix(matrix);
-        // iterativeSolver.SetVector(vector);
+        iterativeSolver.SetVector(vector);
         iterativeSolver.Compute();
 
         // Переводим матрицу в профильный формат
