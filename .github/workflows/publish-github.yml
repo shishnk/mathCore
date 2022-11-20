@@ -29,4 +29,4 @@ jobs:
         run: dotnet pack MathCore -v m          
       
       - name: Push package
-        run: dotnet nuget push "**/*.nupkg" --skip-duplicate -s https://nuget.pkg.github.com/Hukutka/index.json -k ${{secrets.GITHUB_TOKEN}}
+        run: dotnet nuget push "**/*.nupkg" --skip-duplicate -s https://nuget.pkg.github.com/shishnk/index.json -k ${{secrets.GITHUB_TOKEN}}
