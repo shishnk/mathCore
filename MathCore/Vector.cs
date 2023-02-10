@@ -23,23 +23,23 @@ public class Vector<T> : IEnumerable<T> where T : INumber<T>
 
     public static T operator *(Vector<T> a, Vector<T> b)
     {
-        T result = T.Zero;
+        var result = T.Zero;
 
         for (int i = 0; i < a.Length; i++)
         {
             result += a[i] * b[i];
         }
-
+        
         return result;
     }
 
     public static Vector<T> operator *(double constant, Vector<T> vector)
     {
         Vector<T> result = new(vector.Length);
-
+        
         for (int i = 0; i < vector.Length; i++)
         {
-            result[i] = vector[i] * T.Create(constant);
+            result[i] = vector[i] * T.CreateChecked(constant);
         }
 
         return result;
@@ -104,7 +104,7 @@ public class Vector<T> : IEnumerable<T> where T : INumber<T>
     {
         for (int i = 0; i < Length; i++)
         {
-            _storage[i] = T.Create(value);
+            _storage[i] = T.CreateChecked(value);
         }
     }
 
@@ -114,7 +114,7 @@ public class Vector<T> : IEnumerable<T> where T : INumber<T>
     /// <returns>Euclidean norm.</returns>
     public double Norm()
     {
-        T result = T.Zero;
+        var result = T.Zero;
 
         for (int i = 0; i < Length; i++)
         {
@@ -129,7 +129,7 @@ public class Vector<T> : IEnumerable<T> where T : INumber<T>
 
     public IEnumerator<T> GetEnumerator()
     {
-        foreach (T value in _storage)
+        foreach (var value in _storage)
         {
             yield return value;
         }
